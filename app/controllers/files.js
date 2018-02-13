@@ -10,7 +10,7 @@ const setModel = require('./concerns/set-mongoose-model')
 
 const multer = require('multer')
 const multerUpload = multer({ dest: '/tmp' })
-const s3Upload = require('../../lib/s3Upload')
+// const s3Upload = require('../../lib/s3Upload')
 
 const index = (req, res, next) => {
   File.find()
@@ -34,16 +34,17 @@ const create = (req, res, next) => {
   // console.log('req is', req)
   console.log('req.file is', req.file)
 
-  s3Upload(req.file)
-    .then((data) => File.create({
-      url: data.Location
-    }))
-    .then(file =>
-      res.status(201)
-        .json({
-          file: file.toJSON({ virtuals: true, user: req.user })
-        }))
-    .catch(next)
+  // s3Upload(req.file)
+  //   .then((data) => File.create({
+  //     url: data.Location
+  //   }))
+  //   .then(file =>
+  //     res.status(201)
+  //       .json({
+  //         file: file.toJSON({ virtuals: true, user: req.user })
+  //       }))
+  //   .catch(next)
+
   // File.create(file)
   //   .then(file =>
   //     res.status(201)
