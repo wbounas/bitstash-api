@@ -4,7 +4,9 @@ const mongoose = require('../app/middleware/mongoose')
 
 const s3Upload = require('../lib/s3Upload')
 
-const Upload = require('../app/models/upload')
+// "File" references the model right now.
+// Consider changing "File" to some less common programming word later.
+const File = require('../app/models/file')
 
 // load environment variables
 const filepath = process.argv[2]
@@ -17,7 +19,7 @@ const done = function () { // eslint-disable-line no-unused-vars
 
 s3Upload(filepath)
   .then(data => {
-    return Upload.create({
+    return File.create({
       url: data.Location
     })
   })
