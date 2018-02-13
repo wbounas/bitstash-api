@@ -9,11 +9,13 @@ curl "${API}${URL_PATH}" \
   --header "Content-Type: application/json" \
   --header "Authorization: Token token=${TOKEN}" \
   --data '{
-    "book": {
-      "title": "'"${TITLE}"'",
-      "author": "'"${AUTHOR}"'",
-      "originalLanguage": "'"${LANG}"'",
-      "firstPublished": "'"${PUB}"'"
+    "file": {
+      "file_name": "'"${NAME}"'",
+      "file_type": "'"${TYPE}"'",
+      "file_size": "'"${SIZE}"'",
+      "url": "'"${URL}"'",
+      "tags": "'"${TAGS}"'",
+      "_owner": "'"${ID}"'"
     }
   }'
 

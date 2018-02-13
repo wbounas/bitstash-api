@@ -28,10 +28,11 @@ const show = (req, res) => {
 }
 
 const create = (req, res, next) => {
-  // const file = Object.assign(req.body.file, {
-  //   _owner: req.user._id
-  // })
-  // console.log('req is', req)
+  const file = Object.assign(req.body.file, {
+    // _owner: req.user._id
+  })
+  console.log('req.user is', req.user)
+  console.log('req is', req)
   console.log('req.file is', req.file)
 
   // s3Upload(req.file)
@@ -45,13 +46,13 @@ const create = (req, res, next) => {
   //       }))
   //   .catch(next)
 
-  // File.create(file)
-  //   .then(file =>
-  //     res.status(201)
-  //       .json({
-  //         file: file.toJSON({ virtuals: true, user: req.user })
-  //       }))
-  //   .catch(next)
+  File.create(file)
+    .then(file =>
+      res.status(201)
+        .json({
+          file: file.toJSON({ virtuals: true, user: req.user })
+        }))
+    .catch(next)
 }
 
 const update = (req, res, next) => {
