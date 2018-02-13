@@ -2,7 +2,7 @@
 
 const controller = require('lib/wiring/controller')
 const models = require('app/models')
-const Upload = models.upload
+const File = models.file
 
 const authenticate = require('./concerns/authenticate')
 const setUser = require('./concerns/set-current-user')
@@ -13,9 +13,9 @@ const multerUpload = multer({ dest: '/tmp' })
 const s3Upload = require('../../lib/s3Upload')
 
 const index = (req, res, next) => {
-  Upload.find()
-    .then(uploads => res.json({
-      uploads: uploads.map((e) =>
+  File.find()
+    .then(files => res.json({
+      files: files.map((e) =>
         e.toJSON({ virtuals: true, user: req.user }))
     }))
     .catch(next)
@@ -23,46 +23,46 @@ const index = (req, res, next) => {
 
 const show = (req, res) => {
   res.json({
-    upload: req.upload.toJSON({ virtuals: true, user: req.user })
+    file: req.file.toJSON({ virtuals: true, user: req.user })
   })
 }
 
 const create = (req, res, next) => {
-  // const upload = Object.assign(req.body.upload, {
+  // const file = Object.assign(req.body.file, {
   //   _owner: req.user._id
   // })
   // console.log('req is', req)
   console.log('req.file is', req.file)
 
   s3Upload(req.file)
-    .then((data) => Upload.create({
+    .then((data) => File.create({
       url: data.Location
     }))
-    .then(upload =>
+    .then(file =>
       res.status(201)
         .json({
-          upload: upload.toJSON({ virtuals: true, user: req.user })
+          file: file.toJSON({ virtuals: true, user: req.user })
         }))
     .catch(next)
-  // Upload.create(upload)
-  //   .then(upload =>
+  // File.create(file)
+  //   .then(file =>
   //     res.status(201)
   //       .json({
-  //         upload: upload.toJSON({ virtuals: true, user: req.user })
+  //         file: file.toJSON({ virtuals: true, user: req.user })
   //       }))
   //   .catch(next)
 }
 
 const update = (req, res, next) => {
-  delete req.body.upload._owner  // disallow owner reassignment.
+  delete req.body.file._owner  // disallow owner reassignment.
 
-  req.upload.update(req.body.upload)
+  req.file.update(req.body.file)
     .then(() => res.sendStatus(204))
     .catch(next)
 }
 
 const destroy = (req, res, next) => {
-  req.upload.remove()
+  req.file.remove()
     .then(() => res.sendStatus(204))
     .catch(next)
 }
@@ -77,6 +77,6 @@ module.exports = controller({
   { method: multerUpload.single('image[file]'), only: ['create'] },
   { method: setUser, only: ['index', 'show'] },
   { method: authenticate, except: ['index', 'show', 'create'] },
-  { method: setModel(Upload), only: ['show'] },
-  { method: setModel(Upload, { forUser: true }), only: ['update', 'destroy'] }
+  { method: setModel(File), only: ['show'] },
+  { method: setModel(File, { forUser: true }), only: ['update', 'destroy'] }
 ] })
