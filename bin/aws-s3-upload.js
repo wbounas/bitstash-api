@@ -27,6 +27,8 @@ const done = function () { // eslint-disable-line no-unused-vars
 const ext = path.extname(filepath)
 const filename = path.basename(filepath, ext)
 const mimeType = mime.lookup(filepath)
+// returns object with various file info, including size
+const fileSizeInBytes = fs.statSync(filepath).size
 
 const fileObject = {
   file: {
@@ -42,7 +44,7 @@ s3Upload(fileObject)
       url: data.Location,
       file_name: filename,
       file_type: ext,
-      file_size: 'placeholder',
+      file_size: fileSizeInBytes,
       tags: ext,
       _owner: '4040404'
     })
