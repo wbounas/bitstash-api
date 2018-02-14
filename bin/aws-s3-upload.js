@@ -46,7 +46,7 @@ s3Upload(fileObject)
       file_type: ext,
       file_size: fileSizeInBytes,
       tags: ext,
-      _owner: '4040404'
+      _owner: '5a8450ab4c8a615721f06182'
     })
   })
   .then(data => {

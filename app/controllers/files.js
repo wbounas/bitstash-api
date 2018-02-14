@@ -32,8 +32,9 @@ const show = (req, res) => {
 }
 
 const create = (req, res, next) => {
-  const file = Object.assign(req.body.file, {
-    _owner: req.user._id
+  console.log('req is', req)
+  const userFile = Object.assign(req.body.userFile, {
+    _owner: req.body.user._id
   })
   console.log('req.user is', req.user)
   console.log('req is', req)
@@ -50,12 +51,12 @@ const create = (req, res, next) => {
   //       }))
   //   .catch(next)
 
-  const ext = path.extname(req.file.originalname)
-  const filename = path.basename(req.file.originalname, ext)
+  const ext = path.extname(userFile.originalname)
+  const filename = path.basename(userFile.originalname, ext)
   // returns object with various file info, including size
-  const fileSizeInBytes = fs.statSync(req.file.path).size
+  const fileSizeInBytes = fs.statSync(userFile.path).size
 
-  s3Upload(file)
+  s3Upload(userFile)
     .then(data => {
       return File.create({
         url: data.Location,
@@ -63,7 +64,7 @@ const create = (req, res, next) => {
         file_type: ext,
         file_size: fileSizeInBytes,
         tags: ext,
-        _owner: req.user._id
+        _owner: userFile._owner
       })
     })
     .then(file =>
