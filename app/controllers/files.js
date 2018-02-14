@@ -32,11 +32,11 @@ const show = (req, res) => {
 }
 
 const create = (req, res, next) => {
-  // console.log('req is', req)
+  console.log('req is', req)
   const userFile = req.file
   // console.log('userFile:', userFile)
-  // console.log('req:', req)
-  // const userFile = Object.assign(req.body.userFile, {
+  console.log('req:', req)
+  // const userFile = Object.assign(req.body.file, {
   //   _owner: req.body.user._id
   // })
   // console.log('req.user is', req.user)
@@ -67,7 +67,8 @@ const create = (req, res, next) => {
         file_type: ext,
         file_size: fileSizeInBytes,
         tags: ext,
-        _owner: userFile._owner
+        _owner: '5a8450ab4c8a615721f06182'
+        // _owner: userFile._owner
       })
     })
     .then(file =>
