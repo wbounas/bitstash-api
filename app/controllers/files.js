@@ -96,7 +96,7 @@ module.exports = controller({
   update,
   destroy
 }, { before: [
-  { method: multerUpload.single('image[file]'), only: ['create'] },
+  { method: multerUpload.single('file[path]'), only: ['create'] },
   { method: setUser, only: ['index', 'show'] },
   { method: authenticate, except: ['index', 'show', 'create'] },
   { method: setModel(File), only: ['show'] },
