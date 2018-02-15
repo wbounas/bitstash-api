@@ -15,6 +15,7 @@ const fs = require('fs')
 const path = require('path')
 
 const s3Upload = require('../../lib/s3Upload')
+const s3Delete = require('../../lib/s3Delete')
 
 const index = (req, res, next) => {
   File.find()
@@ -89,8 +90,24 @@ const update = (req, res, next) => {
 }
 
 const destroy = (req, res, next) => {
-  req.file.remove()
-    .then(() => res.sendStatus(204))
+  // Define the key for S3 Bucket
+  const keyURL = req.file.url
+  const searchString = 'amazonaws.com/'
+  // This returns the position of the first character of the key
+  const startChar = keyURL.search(searchString) + searchString.length
+  // this is the position of last character of the key string
+  const endChar = keyURL.length
+  // This parses the key string from the KeyURL
+  const keyString = keyURL.substring(startChar, endChar)
+
+  // This object is for the s3Delete function
+  const objectForDelete = {
+    key: keyString
+  }
+
+  s3Delete(objectForDelete)
+    .then(data => req.file.remove())
+    .then(data => res.sendStatus(204))
     .catch(next)
 }
 
