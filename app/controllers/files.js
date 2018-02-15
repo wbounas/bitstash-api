@@ -33,7 +33,7 @@ const show = (req, res) => {
 
 const create = (req, res, next) => {
   // console.log('req is', req)
-  const userFile = req.file
+  const userFile = req
   // console.log('userFile:', userFile)
   console.log('req.body:', req.body)
   console.log('req.file:', req.file)
