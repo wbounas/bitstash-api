@@ -20,3 +20,6 @@ curl "${API}${URL_PATH}/${ID}" \
   }'
 
 echo
+
+# COMMAND LINE
+# TOKEN="oWNcj/lbhPMQ3L/b8KnKnSujvKHXtAaLis1R3xcQXGI=--Y5sWVhdDxu6uNrmOrLCPeRbRu9+B/FxSb6lGcWQPjUk=" ID="5a84bcf17d1b718af686dd9f" NAME="FISH" URL="bubble.com" TAGS=".txt" SIZE=4000 TYPE="txt" OWNERID="5a8450ab4c8a615721f06182" sh scripts/files/update.sh
