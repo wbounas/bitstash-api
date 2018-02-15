@@ -55,10 +55,10 @@ const create = (req, res, next) => {
   //       }))
   //   .catch(next)
 
-  const ext = path.extname(userFile.originalname)
-  const filename = path.basename(userFile.originalname, ext)
+  const ext = path.extname(userFile.file.originalname)
+  const filename = path.basename(userFile.file.originalname, ext)
   // returns object with various file info, including size
-  const fileSizeInBytes = fs.statSync(userFile.path).size
+  const fileSizeInBytes = fs.statSync(userFile.file.path).size
   console.log('look at me!!')
   s3Upload(userFile)
     .then(data => {
@@ -103,7 +103,7 @@ module.exports = controller({
 }, { before: [
   { method: multerUpload.single('file[path]'), only: ['create'] },
   { method: setUser, only: ['index', 'show'] },
-  { method: authenticate, except: ['index', 'show', 'create'] },
+  { method: authenticate, except: ['index', 'show'] },
   { method: setModel(File), only: ['show'] },
   { method: setModel(File, { forUser: true }), only: ['update', 'destroy'] }
 ] })
