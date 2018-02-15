@@ -4,6 +4,9 @@ const HttpError = require('lib/wiring/errors/http-error')
 
 const setMongooseModel = (model, options) =>
   function (req, res, next) {
+    console.log('req.params is:', req.params)
+    console.log('req.body is:', req.body)
+    console.log('req.file is:', req.file)
     const search = { _id: req.params.id }
     if (options && options.forUser) {
       search._owner = req.user
