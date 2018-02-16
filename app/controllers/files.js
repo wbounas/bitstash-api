@@ -18,7 +18,7 @@ const s3Upload = require('../../lib/s3Upload')
 const s3Delete = require('../../lib/s3Delete')
 
 const index = (req, res, next) => {
-  File.find()
+  File.find({_owner: req.user.id})
     .then(files => res.json({
       files: files.map((e) =>
         e.toJSON({ virtuals: true, user: req.user }))
