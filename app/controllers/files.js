@@ -100,13 +100,6 @@ const update = (req, res, next) => {
     .then(file => res.json({
       file: req.file.toJSON({ virtuals: true, user: req.user })
     }))
-    .then(file => {
-      console.log('file in the promise: ', file)
-      return res.status(201)
-        .json({
-          file: file.toJSON({ virtuals: true, user: req.user })
-        })
-    })
     .catch(next)
 }
 
