@@ -4,9 +4,6 @@ const controller = require('lib/wiring/controller')
 const models = require('app/models')
 const File = models.file
 
-const mongoose = require('../middleware/mongoose')
-const db = mongoose.connection
-
 const authenticate = require('./concerns/authenticate')
 const setUser = require('./concerns/set-current-user')
 const setModel = require('./concerns/set-mongoose-model')
@@ -91,7 +88,7 @@ const update = (req, res, next) => {
     .then(successObject => {
       console.log('req.body.id is:', req.body.id)
       // console.log('db is:', db)
-      console.log('db.files is:', db.files)
+      // console.log('db.files is:', db.files)
 
       const findResult = File.findOne({'id': req.body.id})
       console.log('result of find:', findResult)
