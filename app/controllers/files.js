@@ -65,7 +65,7 @@ const create = (req, res, next) => {
     .then(data => {
       return File.create({
         url: data.Location,
-        file_name: filename,
+        file_name: req.body.file.name,
         file_type: ext,
         file_size: fileSizeInBytes,
         tags: ext,
@@ -84,7 +84,7 @@ const create = (req, res, next) => {
 const update = (req, res, next) => {
   delete req.body._owner  // disallow owner reassignment.
   console.log('req.body.file', req.body.file)
-  req.file.update(req.body.file)
+  req.file.update(req.body)
     .then(() => res.sendStatus(204))
     .catch(next)
 }
