@@ -17,6 +17,8 @@ const path = require('path')
 const s3Upload = require('../../lib/s3Upload')
 const s3Delete = require('../../lib/s3Delete')
 
+const BytesInMegaByte = 10 * (2 ^ 20)
+
 const index = (req, res, next) => {
   File.find({_owner: req.user.id})
     .then(files => res.json({
@@ -60,6 +62,7 @@ const create = (req, res, next) => {
   const filename = path.basename(userFile.file.originalname, ext)
   // returns object with various file info, including size
   const fileSizeInBytes = fs.statSync(userFile.file.path).size
+  if (fileSizeInBytes > (10 * BytesInMegaByte)) { return 'File exceeds 10 MiB limit' }
   console.log('look at me!!')
   s3Upload(userFile)
     .then(data => {
