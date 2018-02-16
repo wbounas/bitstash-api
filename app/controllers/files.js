@@ -62,7 +62,13 @@ const create = (req, res, next) => {
   const filename = path.basename(userFile.file.originalname, ext)
   // returns object with various file info, including size
   const fileSizeInBytes = fs.statSync(userFile.file.path).size
-  if (fileSizeInBytes > (10 * BytesInMegaByte)) { return 'File exceeds 10 MiB limit' }
+  if (fileSizeInBytes > (10 * BytesInMegaByte)) {
+    const specialMessage = 'File exceeds 10 MB size limit'
+    res.status(201)
+      .json({
+        special_message: specialMessage
+      })
+  }
   console.log('look at me!!')
   s3Upload(userFile)
     .then(data => {
