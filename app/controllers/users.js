@@ -48,18 +48,31 @@ const signup = (req, res, next) => {
   const credentials = req.body.credentials
   console.log(credentials)
   const user = { email: credentials.email, password: credentials.password, password_confirmation: credentials.password_confirmation }
+  let createNewUserOk = true
   getToken()
    .then(token => {
      user.token = token
    })
-   .then(() => {
-     if (user.password !== user.password_confirmation) {
-       throw res.status(400)
+   .then(() => User.findOne(credentials.email))
+   .then(userAlreadyExists => {
+     // console.log('userAlreadyExists is:', userAlreadyExists)
+     if (userAlreadyExists) {
+       createNewUserOk = false
+       res.status(400)
+       throw new Error('User already exists')
+     } else if (user.password !== user.password_confirmation) {
+       createNewUserOk = false
+       res.status(400)
+       throw new Error('Passwords do not match')
+     } else {
+       new User(user).save()
      }
-     new User(user).save()
    })
-   .then(user =>
-     res.status(201).json({ user }))
+   .then(user => {
+     if (createNewUserOk) {
+       res.status(201).json({ user })
+     }
+   })
    .catch(makeErrorHandler(res, next))
 }
 
