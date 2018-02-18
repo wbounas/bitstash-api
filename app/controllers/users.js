@@ -53,7 +53,7 @@ const signup = (req, res, next) => {
    .then(token => {
      user.token = token
    })
-   .then(() => User.findOne(credentials.email))
+   .then((dummyData) => User.findOne({email: credentials.email}))
    .then(userAlreadyExists => {
      // console.log('userAlreadyExists is:', userAlreadyExists)
      if (userAlreadyExists) {
