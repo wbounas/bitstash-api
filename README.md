@@ -1,4 +1,12 @@
-# Catalog of Routes
+## Front-End Links
+ [Live Page](https://alkazams-shark-assassins.github.io/bitstash-client/)
+ [GitHub Repo](https://github.com/alkazams-shark-assassins/bitstash-client)
+
+## Back-End Links
+[Live Page](https://desolate-eyrie-66077.herokuapp.com/)
+[GitHub Repo](https://github.com/alkazams-shark-assassins/bitstash-api)
+
+## Catalog of Routes
 
 ### **API End-Points**
 
@@ -13,3 +21,6 @@
 | get    | `/files/:id`     | `File#show` |
 | delete | `/files/:id`     | `File#destroy` |
 | patch  | `/files/:id`     | `File#update` |
+
+
+![ERD](planning/BitStash_ERD.png)
