@@ -23,4 +23,6 @@
 | patch  | `/files/:id`     | `File#update` |
 
 
+## Entity Relationship Diagram
+
 ![ERD](planning/BitStash_ERD.png)
