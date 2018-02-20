@@ -61,7 +61,7 @@ const signup = (req, res, next) => {
        createNewUserOk = false
        return Promise.reject(new Error('User already exists'))
      } else if (user.password !== user.password_confirmation) {
-       createNewUserOk = falsez
+       createNewUserOk = false
        return Promise.reject(new Error('Passwords do not match'))
      } else {
        new User(user).save()
