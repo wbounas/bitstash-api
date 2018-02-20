@@ -18,6 +18,7 @@ const s3Upload = require('../../lib/s3Upload')
 const s3Delete = require('../../lib/s3Delete')
 
 const BytesInMegaByte = (Math.pow(2, 20))
+const sizeLimitInMB = 10
 
 const index = (req, res, next) => {
   File.find({_owner: req.user.id})
@@ -62,8 +63,8 @@ const create = (req, res, next) => {
   const filename = path.basename(userFile.file.originalname, ext)
   // returns object with various file info, including size
   const fileSizeInBytes = fs.statSync(userFile.file.path).size
-  if (fileSizeInBytes > (10 * BytesInMegaByte)) {
-    const specialMessage = 'File exceeds 10 MB size limit'
+  if (fileSizeInBytes > (sizeLimitInMB * BytesInMegaByte)) {
+    const specialMessage = 'File exceeds ' + sizeLimitInMB + ' MB size limit'
     res.status(201)
       .json({
         special_message: specialMessage
