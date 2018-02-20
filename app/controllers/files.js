@@ -17,7 +17,7 @@ const path = require('path')
 const s3Upload = require('../../lib/s3Upload')
 const s3Delete = require('../../lib/s3Delete')
 
-const BytesInMegaByte = 10 * (Math.pow(2, 20))
+const BytesInMegaByte = (Math.pow(2, 20))
 
 const index = (req, res, next) => {
   File.find({_owner: req.user.id})

@@ -49,7 +49,6 @@ const signup = (req, res, next) => {
   console.log(credentials)
   const user = { email: credentials.email, password: credentials.password, password_confirmation: credentials.password_confirmation }
   let createNewUserOk = true
-  let err
   getToken()
    .then(token => {
      user.token = token
