@@ -12,7 +12,7 @@ Express Middleware: multer, bcrypt, mime-types, aws-sdk, crypto, path, fs
 | [GitHub Client Repo](https://github.com/wbounas/bitstash-client)
 
 **API (Back End) -**
-[Deployed API](https://wb-bitstash-bucket.herokuapp.com)
+[Deployed API](https://wb-bitstash-api.herokuapp.com)
 | [GitHub API Repo](https://github.com/wbounas/bitstash-api)
 
 ### About
